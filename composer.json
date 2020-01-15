@@ -11,7 +11,8 @@
     "require": {
         "guzzlehttp/guzzle": "^6.5",
         "phpunit/phpunit": "^7.5",
-        "mockery/mockery": "^1.3"
+        "mockery/mockery": "^1.3",
+        "moyanshe/weather": "dev-master"
     },
     "autoload": {
         "psr-4": {
