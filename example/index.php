@@ -1,7 +1,9 @@
 <?php
-require_once __DIR__."/../vendor/autoload.php";
+
+require_once __DIR__.'/../vendor/autoload.php';
 
 use Moyanshe\Weather\Weather;
+
 // 高德开放平台应用 API Key
 $key = 'bb5e3bd493d1f29f52f9d8ee4bf47049';
 $w = new Weather($key);

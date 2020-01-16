@@ -1,13 +1,16 @@
 <?php
+
 namespace Moyanshe\Weather\Tests;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 use Mockery\Matcher\AnyArgs;
-use PHPUnit\Framework\TestCase;
 use Moyanshe\Weather\Exceptions\HttpException;
 use Moyanshe\Weather\Exceptions\InvalidArgumentException;
 use Moyanshe\Weather\Weather;
+use PHPUnit\Framework\TestCase;
+
 class WeatherTest extends TestCase
 {
     // 检查 $type 参数
@@ -21,6 +24,7 @@ class WeatherTest extends TestCase
         $w->getWeather('深圳', 'foo');
         $this->fail('Failed to assert getWeather throw exception with invalid argument.');
     }
+
     // 检查 $format 参数
     public function testGetWeatherWithInvalidFormat()
     {
@@ -34,6 +38,7 @@ class WeatherTest extends TestCase
         // 如果没有抛出异常，就会运行到这行，标记当前测试没成功
         $this->fail('Failed to assert getWeather throw exception with invalid argument.');
     }
+
     public function testGetWeather()
     {
         // json
@@ -41,9 +46,9 @@ class WeatherTest extends TestCase
         $client = \Mockery::mock(Client::class);
         $client->allows()->get('https://restapi.amap.com/v3/weather/weatherInfo', [
             'query' => [
-                'key' => 'mock-key',
-                'city' => '深圳',
-                'output' => 'json',
+                'key'        => 'mock-key',
+                'city'       => '深圳',
+                'output'     => 'json',
                 'extensions' => 'base',
             ],
         ])->andReturn($response);
@@ -55,16 +60,17 @@ class WeatherTest extends TestCase
         $client = \Mockery::mock(Client::class);
         $client->allows()->get('https://restapi.amap.com/v3/weather/weatherInfo', [
             'query' => [
-                'key' => 'mock-key',
-                'city' => '深圳',
+                'key'        => 'mock-key',
+                'city'       => '深圳',
                 'extensions' => 'all',
-                'output' => 'xml',
+                'output'     => 'xml',
             ],
         ])->andReturn($response);
         $w = \Mockery::mock(Weather::class, ['mock-key'])->makePartial();
         $w->allows()->getHttpClient()->andReturn($client);
         $this->assertSame('<hello>content</hello>', $w->getWeather('深圳', 'all', 'xml'));
     }
+
     public function testGetWeatherWithGuzzleRuntimeException()
     {
         $client = \Mockery::mock(Client::class);
@@ -77,12 +83,14 @@ class WeatherTest extends TestCase
         $this->expectExceptionMessage('request timeout');
         $w->getWeather('深圳');
     }
+
     public function testGetHttpClient()
     {
         $w = new Weather('mock-key');
         // 断言返回结果为 GuzzleHttp\ClientInterface 实例
         $this->assertInstanceOf(ClientInterface::class, $w->getHttpClient());
     }
+
     public function testSetGuzzleOptions()
     {
         $w = new Weather('mock-key');
@@ -113,5 +121,4 @@ class WeatherTest extends TestCase
         // 断言正确传参并返回
         $this->assertSame(['success' => true], $w->getForecastsWeather('深圳'));
     }
-
 }
