@@ -185,6 +185,18 @@ public function edit()
 ## 参考
 - [高德开放平台天气接口](https://lbs.amap.com/api/webservice/guide/api/weatherinfo/)
 
+### 学习资料
+- [LX2 PHP 扩展包实战教程 - 从入门到发布](https://learnku.com/courses/creating-package)
+
+- [持续集成服务 Travis CI 教程](http://www.ruanyifeng.com/blog/2017/12/travis_ci_tutorial.html)
+
+### 工具地址
+- [The PHP Package Repository](https://packagist.org/)
+
+- [Travis CI](https://travis-ci.org/)
+
+- [StyleCI](https://github.styleci.io/)
+
 
 ## License
 
